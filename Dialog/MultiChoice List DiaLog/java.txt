@@ -1,0 +1,61 @@
+package com.mwi7.thinknext
+
+import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        btn4.setOnClickListener {
+            val colors = arrayOf("Red","Blue","Black","Yellow","Green")
+            var checkedItem =1
+            val checkedItems = booleanArrayOf(true,false,true,true,false)
+            val adb = AlertDialog.Builder(this)
+            adb.setTitle("Select Color")
+            adb.setIcon(R.mipmap.ic_launcher)
+            adb.setCancelable(false)
+
+            adb.setMultiChoiceItems(colors, checkedItems , object :  DialogInterface.OnMultiChoiceClickListener {
+                override fun onClick(dialog: DialogInterface?, which: Int, isChecked: Boolean) {
+                  checkedItems[which]=isChecked
+                }
+
+            })
+
+            adb.setPositiveButton("Submit", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    var selectedColors  = ""
+                    for ( z in 0..(checkedItems.size-1)){
+                        if(checkedItems[z]==true){
+                            selectedColors = selectedColors + colors[z] + " , "
+                        }
+                    }
+                    if (selectedColors.equals("")){
+                        Toast.makeText(this@MainActivity,"No Color is selected",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this@MainActivity ,"Selected colors are $selectedColors",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
+            adb.setNegativeButton("Cancel", object  : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    Toast.makeText(this@MainActivity ,"Cancelled",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            val ad : AlertDialog = adb.create()
+            ad.show()
+        }
+    }
+}

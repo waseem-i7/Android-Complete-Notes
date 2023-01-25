@@ -1,0 +1,24 @@
+package com.mwi7.myapplication
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_explicit_intent.*
+
+class ExplicitIntent : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_explicit_intent)
+
+          val bundle : Bundle? = intent.extras
+          val msg =bundle!!.getString("KEY")
+          textView.text=msg
+
+        val msg1 = bundle!!.getString("mykey1")
+        val msg2 = bundle!!.getInt("mykey2")
+        val msg3 = bundle!!.getBoolean("mykey3")
+        tv1.text=msg1
+        tv2.text= msg2.toString()
+        tv3.text= msg3.toString()
+    }
+}

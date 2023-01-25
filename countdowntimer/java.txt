@@ -1,0 +1,61 @@
+package com.mwi7.mohammad
+
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.roundToInt
+
+
+class MainActivity : AppCompatActivity() {
+
+    private var cd: CountDownTimer? =null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        btnStart.setOnClickListener {
+            val time = etTime.text.toString()
+            if (time.trim().equals("")){
+                Toast.makeText(this,"please Enter time",Toast.LENGTH_SHORT).show()
+            }else {
+                val countDownTimer = Integer.parseInt(time)
+                val cdt = countDownTimer.toLong()
+                stopTimer()
+                startTimer(cdt)
+            }
+        }
+
+
+        btnStop.setOnClickListener {
+            stopTimer()
+        }
+    }
+
+    private fun startTimer(countDownTimer: Long) {
+        cd = object : CountDownTimer(countDownTimer * 1000, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                val remSeconds = (millisUntilFinished / 1000f).roundToInt()
+                tvRemaining.text = remSeconds.toString()
+            }
+
+            override fun onFinish() {
+                Toast.makeText(this@MainActivity, "Timer Finished", Toast.LENGTH_SHORT).show()
+            }
+        }
+        cd?.start()
+    }
+
+    private fun stopTimer() {
+       cd?.let {
+           it.cancel()
+           Toast.makeText(this, "Timer Stopped", Toast.LENGTH_SHORT).show()
+       }
+
+
+    }
+
+}
+

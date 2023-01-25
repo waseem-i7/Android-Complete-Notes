@@ -1,0 +1,43 @@
+package com.example.addvocab
+
+class Word(DefaultTranslation: String, HindiTranslation: String, audioResourceId: Int){
+
+    private var mDefaultTranslation:String
+    private var mHindiTranslation:String
+    private var mAudioResourceId:Int
+    private var mImageResourceId:Int = -1
+
+    init {
+        mDefaultTranslation=DefaultTranslation
+        mHindiTranslation=HindiTranslation
+        mAudioResourceId=audioResourceId
+    }
+
+    constructor(DefaultTranslation: String,HindiTranslation: String,audioResourceId: Int,imageResourceId:Int):this(DefaultTranslation, HindiTranslation, audioResourceId){
+
+        mDefaultTranslation=DefaultTranslation
+        mHindiTranslation=HindiTranslation
+        mAudioResourceId=audioResourceId
+        mImageResourceId=imageResourceId
+    }
+
+
+    public fun getHindiTranslation() : String{
+        return mHindiTranslation
+    }
+
+    public fun getDefaultTranslation():String{
+        return mDefaultTranslation
+    }
+
+    public fun getAudio():Int{
+        return mAudioResourceId
+    }
+
+    public fun getImage() : Int{
+        return mImageResourceId
+    }
+
+    override fun toString(): String ="\n mDefaultTranslation $mDefaultTranslation \n mHindiTranslation $mHindiTranslation \n mAudioResourceId $mAudioResourceId \n mImageResourceId $mImageResourceId"
+
+}

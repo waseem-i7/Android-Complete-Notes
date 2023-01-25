@@ -1,0 +1,29 @@
+package com.example.thinknextapp
+
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+
+class MyViewPagerAdapter(val fm : FragmentManager ,val behavior : Int ) : FragmentPagerAdapter(fm,behavior) {
+
+
+    val alFragments : ArrayList<Fragment> = ArrayList()
+    val alTitles: ArrayList<String> = ArrayList()
+
+    fun addFragment(fragment : Fragment,title : String){
+        alFragments.add(fragment)
+        alTitles.add(title)
+    }
+
+    override fun getCount(): Int {
+        return alFragments.size
+    }
+
+    override fun getItem(position: Int): Fragment {
+        return alFragments[position]
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return alTitles[position]
+    }
+}

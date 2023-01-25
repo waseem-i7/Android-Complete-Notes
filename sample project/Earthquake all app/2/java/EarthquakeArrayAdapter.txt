@@ -1,0 +1,110 @@
+package com.mwi7.earthquake
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+
+class EarthquakeArrayAdapter(context: Context, resource: Int, earthquakes: List<Earthquake>) : ArrayAdapter<Earthquake>(context, resource,earthquakes) {
+
+     companion object{
+         val LOCATION_SEPERATOR = " of "
+     }
+
+    @SuppressLint("ViewHolder")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+        //inflate item_view.xml into a view
+        val listView = LayoutInflater.from(context).inflate(R.layout.item_view,parent,false)
+
+        //get currentEarthquake object
+        val currentEarthquake = getItem(position)
+
+        //initiallization of views
+        val magnitude = listView.findViewById<TextView>(R.id.magnitude)
+        val primaryLocation = listView.findViewById<TextView>(R.id.primary_location)
+        val locationOffset=listView.findViewById<TextView>(R.id.location_offset)
+        val date = listView.findViewById<TextView>(R.id.date)
+        val time = listView.findViewById<TextView>(R.id.time)
+
+
+        //magnitude
+         val mag = currentEarthquake!!.magnitude
+         val magnitudeFormat = DecimalFormat("0.0")
+         magnitude.text=magnitudeFormat.format(mag)
+
+
+        //magnitude circle
+        val magnitudeCircle : GradientDrawable = magnitude.background as GradientDrawable
+        val magnitudeColor : Int = getMagnitudeColor(mag)
+        magnitudeCircle.setColor(magnitudeColor)
+        //location
+
+        val originalLocation = currentEarthquake!!.location
+        if (originalLocation.contains(LOCATION_SEPERATOR)) {
+            val parts= originalLocation.split(LOCATION_SEPERATOR)
+            locationOffset.text=parts[0] + LOCATION_SEPERATOR
+            primaryLocation.text=parts[1]
+        }else{
+            locationOffset.text = "Near The"
+            primaryLocation.text = originalLocation
+        }
+
+
+
+
+        //time and date
+        val dateObject = currentEarthquake?.date?.let { Date(it) }
+
+        val dateFormatter = SimpleDateFormat("MMM DD, yyyy")
+        val dateToDisplay =dateFormatter.format(dateObject)
+        date.text=dateToDisplay
+
+        val timeFormatter =SimpleDateFormat("h:mm a")
+        val timeTODisplay =timeFormatter.format(dateObject)
+        time.text=timeTODisplay
+
+
+
+
+        return listView
+    }
+
+    private fun getMagnitudeColor(magnitude: Double): Int {
+
+
+        val magnitudeFloor : Int = Math.floor(magnitude).toInt()
+
+        val magnitudeColorResourceId = when(magnitudeFloor){
+            0,1 -> R.color.magnitude1
+            2 -> R.color.magnitude2
+            3->R.color.magnitude3
+            4->R.color.magnitude4
+            5->R.color.magnitude5
+            6 ->R.color.magnitude6
+            7->R.color.magnitude7
+            8 ->  R.color.magnitude8
+            9 -> R.color.magnitude9
+            else ->R.color.magnitude10plus
+            }
+        return ContextCompat.getColor(context,magnitudeColorResourceId)
+    }
+}
+
+
+
+
+
+
+
+
+
+

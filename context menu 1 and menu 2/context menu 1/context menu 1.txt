@@ -1,0 +1,72 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var clickedView : View
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //register for Context Menu
+         registerForContextMenu(tv1)
+        registerForContextMenu(tv2)
+    }
+
+
+    //add menu item to ContextMenu
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        if (v==tv1){
+            clickedView=tv1
+            menu!!.add("Hello")
+            menu!!.add("Android")
+            menu!!.add("java")
+        }else if (v==tv2){
+            clickedView=tv2
+            menu!!.add("Hello")
+            menu!!.add("Android")
+            menu!!.add("java")
+        }
+        super.onCreateContextMenu(menu, v, menuInfo)
+    }
+
+    //perform clicked event on context menu items
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (clickedView==tv1){
+            if (item.title=="Hello"){
+                Toast.makeText(this, "Hello 1 is Selected", Toast.LENGTH_SHORT).show()
+            }else if (item.title=="Android"){
+                Toast.makeText(this, "Android 1 is Selected", Toast.LENGTH_SHORT).show()
+            }else if (item.title=="java"){
+                Toast.makeText(this, "java 1 is Selected", Toast.LENGTH_SHORT).show()
+            }
+        }else if (clickedView==tv2){
+            if (item.title=="Hello"){
+                Toast.makeText(this, "Hello 2 is Selected", Toast.LENGTH_SHORT).show()
+            }else if (item.title=="Android"){
+                Toast.makeText(this, "Android 2 is Selected", Toast.LENGTH_SHORT).show()
+            }else if (item.title=="java"){
+                Toast.makeText(this, "java 2 is Selected", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onContextItemSelected(item)
+    }
+}
+
+
+
+
+
+
+
+
+

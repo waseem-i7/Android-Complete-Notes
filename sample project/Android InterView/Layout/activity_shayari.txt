@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fddfd_orginal_sketch"
+    android:weightSum="100"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/shayari_Numbers"
+        android:background="@drawable/default_button"
+        android:layout_weight="8"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvXX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="XX/" />
+
+        <TextView
+            android:id="@+id/tvYY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="YY" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvShayariTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Shayari"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvShayari"
+                    android:padding="15dp"
+                    android:textStyle="bold"
+                    android:textIsSelectable="true"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="tujhe dekha to yeh jana sanam"/>
+                <Button
+                    android:id="@+id/btnspeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_volume_up_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+
+                <Button
+                    android:id="@+id/btnmute"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_volume_off_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/default_button"
+        android:layout_weight="12"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+           android:background="@drawable/ic_sharp_arrow_back_24"
+            />
+
+        <Button
+            android:id="@+id/btnShowShayari"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shayari"
+             />
+
+        <Button
+            android:background="@drawable/ic_sharp_arrow_forward_24"
+            android:id="@+id/btnRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+             />
+    </LinearLayout>
+
+</LinearLayout>

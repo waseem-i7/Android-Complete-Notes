@@ -1,0 +1,119 @@
+package com.mwi7.giftforyou
+
+import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_shayari.*
+import kotlinx.android.synthetic.main.shayari_title_bar.*
+import java.util.*
+
+class Funny : AppCompatActivity(){
+    private lateinit var FunnyTittleArray : Array<String>
+    private lateinit var FunnyShayariArray : Array<String>
+    private var index : Int = 0
+    lateinit var ttsobject : TextToSpeech
+    var resul: Int=0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_shayari)
+
+        //code for text to speech
+        ttsobject= TextToSpeech(this, TextToSpeech.OnInitListener {
+            if(it==TextToSpeech.SUCCESS){
+                resul=ttsobject.setLanguage(Locale.ENGLISH)
+            }else{
+                Toast.makeText(applicationContext,"Feature not Supported in Your Device", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        btnspeak.setOnClickListener {
+            if (resul==TextToSpeech.LANG_NOT_SUPPORTED || resul==TextToSpeech.LANG_MISSING_DATA){
+                Toast.makeText(applicationContext,"Feature not Supported in Your Device", Toast.LENGTH_SHORT).show()
+
+            }else{
+                ttsobject.speak(FunnyShayariArray[index],TextToSpeech.QUEUE_FLUSH,null)
+            }
+        }
+
+        btnmute.setOnClickListener {
+            if(ttsobject !=null){
+                ttsobject.stop()
+            }
+        }
+
+
+        //Codes for set Custom Title Bar
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.shayari_title_bar)
+        tv_shayari_title_bar.text="Funny"
+
+        //Importing The String array from Values Folder
+        FunnyTittleArray = resources.getStringArray(R.array.Funny_Title)
+        FunnyShayariArray = resources.getStringArray(R.array.Funny_Shayari)
+
+
+        tvShayariTitle.text=FunnyTittleArray[index]
+        tvShayari.text=getString(R.string.textforuserconveniance)
+        tvXX.text=(index+1).toString()
+        tvYY.text=(getString(R.string.slace)+FunnyTittleArray.size.toString())
+
+        btnLeft.setOnClickListener {
+            btnspeak.visibility = Button.GONE
+            btnmute.visibility= Button.GONE
+            tvShayari.text=getString(R.string.textforuserconveniance)
+            index--
+            if(index==-1){
+                index=FunnyTittleArray.size-1
+                tvShayariTitle.text=FunnyTittleArray[index]
+                tvXX.text=(index+1).toString()
+            }else {
+                tvShayariTitle.text = FunnyTittleArray[index]
+                tvXX.text = (index + 1).toString()
+            }
+            if(ttsobject != null){
+                ttsobject.stop()
+            }
+        }
+
+        btnShowShayari.setOnClickListener {
+            btnspeak.visibility = Button.VISIBLE
+            btnmute.visibility= Button.VISIBLE
+            tvShayari.text=FunnyShayariArray[index]
+        }
+
+        btnRight.setOnClickListener {
+            btnspeak.visibility = Button.GONE
+            btnmute.visibility= Button.GONE
+            tvShayari.text=getString(R.string.textforuserconveniance)
+            index++
+            if(index==FunnyTittleArray.size){
+                index=0
+                tvShayariTitle.text=FunnyTittleArray[index]
+                tvXX.text=(index+1).toString()
+            }else {
+                tvShayariTitle.text = FunnyTittleArray[index]
+                tvXX.text = (index + 1).toString()
+            }
+            if(ttsobject != null){
+                ttsobject.stop()
+            }
+        }
+
+    }
+ override fun onDestroy() {
+    super.onDestroy()
+    if(ttsobject != null){
+        ttsobject.stop()
+    }
+ }
+    override fun onStop() {
+        super.onStop()
+        if(ttsobject != null){
+            ttsobject.stop()
+        }
+    }
+}

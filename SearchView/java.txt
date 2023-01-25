@@ -1,0 +1,67 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var sv : SearchView
+    lateinit var adapter : ArrayAdapter<String>
+    lateinit var names : ArrayList<String>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        names = ArrayList()
+        names.add("Android")
+        names.add("Java")
+        names.add("php")
+        names.add("python")
+        names.add("c")
+        names.add("C++")
+        names.add("Kotlin")
+
+        adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,names)
+        listView.adapter =adapter
+
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+       menuInflater.inflate(R.menu.option_menu,menu)
+        val mi : MenuItem = menu!!.findItem(R.id.itSerach)
+        sv= mi.actionView as SearchView
+        sv.isSubmitButtonEnabled=true
+        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                if (names.contains(query)){
+                    adapter.filter.filter(query)
+                }else{
+                    Toast.makeText(this@MainActivity,"Item not fountd",Toast.LENGTH_SHORT).show()
+                }
+              return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+              adapter.filter.filter(newText)
+                return false
+            }
+
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+}
+
+
+
+
+
+

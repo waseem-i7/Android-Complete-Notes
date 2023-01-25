@@ -1,0 +1,20 @@
+package com.mwi7.thinknexttraning
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_text_clock.*
+
+class TextClock : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_text_clock)
+
+
+        if(text_clock.is24HourModeEnabled){
+            Toast.makeText(this,"24 hour mode is Enabled",Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this,"12 hour mode is Enabled",Toast.LENGTH_SHORT).show()
+        }
+    }
+}

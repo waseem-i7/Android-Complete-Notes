@@ -1,0 +1,43 @@
+package com.mwi7.mohammad
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
+import android.os.Bundle
+import android.os.VibrationEffect
+import android.widget.RatingBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import kotlinx.android.synthetic.main.activity_main.*
+
+
+
+class MainActivity : AppCompatActivity(), RatingBar.OnRatingBarChangeListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //set default rating to rating bar 2
+        rb2.rating=3.5f
+
+        rb1.setOnRatingBarChangeListener(this)
+        rb2.setOnRatingBarChangeListener(this)
+
+        btn1.setOnClickListener {
+            val f1 : Float = rb1.rating
+            val f2 : Float = rb2.rating
+
+            Toast.makeText(this,"Rating 1 is $f1 \nRating 2 is $f2",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
+        if (ratingBar==rb1){
+            tv1.text=rating.toString()
+        }else if (ratingBar==rb2){
+            tv2.text=rating.toString()
+        }
+    }
+}
+

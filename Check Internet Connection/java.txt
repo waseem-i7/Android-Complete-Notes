@@ -1,0 +1,53 @@
+package com.mwi7.myapplication
+
+import android.bluetooth.BluetoothAdapter
+import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    //decleare ConnectivityManager
+    lateinit var connectivityManager: ConnectivityManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        //initialization of ConnectivityManager
+        connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+
+
+        btnCheck.setOnClickListener{
+            val networkInfo = connectivityManager.activeNetworkInfo
+            val isConnected =networkInfo!=null&&networkInfo.isAvailable&&networkInfo.isConnected
+            if (isConnected){
+                if (networkInfo?.type==ConnectivityManager.TYPE_WIFI){
+                    Toast.makeText(this,"Internet is Connected via WI-Fi",Toast.LENGTH_SHORT).show()
+                }else if (networkInfo?.type==ConnectivityManager.TYPE_MOBILE){
+                    Toast.makeText(this,"Internet is Connected via Mobile",Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(this,"No internet available",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

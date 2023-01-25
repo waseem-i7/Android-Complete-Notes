@@ -1,0 +1,125 @@
+package com.example.idrisi
+
+import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+
+class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemClickListener {
+
+   lateinit var requestQueue : RequestQueue
+   lateinit var stringRequest : StringRequest
+    lateinit var arrayList: ArrayList<HashMap<String,String>>
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+
+        btnGetData.setOnClickListener(this)
+        btnCancelled.setOnClickListener(this)
+
+    }
+
+    override fun onClick(v: View?) {
+
+        if (v==btnGetData){
+
+            requestQueue = Volley.newRequestQueue(this)
+            val url : String = "https://api.androidhive.info/contacts/"
+            stringRequest  = StringRequest(Request.Method.GET, url, {
+
+                doJsonParsing(it)
+
+            },
+                {
+                    Toast.makeText(this, it.localizedMessage,Toast.LENGTH_SHORT).show()
+
+                })
+            stringRequest.tag = "MyTag"
+            requestQueue.add(stringRequest)
+
+        }else if (v==btnCancelled){
+            stringRequest.cancel()
+            Toast.makeText(this,"Request has been cancelled",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun doJsonParsing(response: String?) {
+        try{
+            arrayList = ArrayList()
+            val jsonObject1 = JSONObject(response)
+            val jsonArray1  = jsonObject1.getJSONArray("contacts")
+            for (x : Int in 0..(jsonArray1.length()-1)){
+                val hashMap : HashMap<String,String> = HashMap()
+
+                val jsonObject=jsonArray1.getJSONObject(x)
+                val id : String = jsonObject.getString("id")
+                val name : String = jsonObject.getString("name")
+                val email : String = jsonObject.getString("email")
+
+                hashMap.put("name",name)
+                hashMap.put("id",id)
+                hashMap.put("email",email)
+
+                arrayList.add(hashMap)
+            }
+
+            setDataOnListView()
+
+        }catch (e : JSONException){
+            e.printStackTrace()
+        }
+
+    }
+
+    private fun setDataOnListView() {
+        val allName : ArrayList<String> = ArrayList()
+
+        for (hm : HashMap<String,String> in arrayList)
+            allName.add(hm.get("name").toString())
+
+         val adapter  = ArrayAdapter(this,android.R.layout.simple_list_item_1,allName)
+        listView.adapter=adapter
+
+        listView.setOnItemClickListener(this)
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        requestQueue.cancelAll("MyTag")
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+         val id : String? = arrayList.get(position).get("id")
+         val email : String? = arrayList.get(position).get("email")
+
+         Toast.makeText(this,"id $id \n Email $email",Toast.LENGTH_SHORT).show()
+    }
+}
+
+
+
+
+
+
+
+
+
+

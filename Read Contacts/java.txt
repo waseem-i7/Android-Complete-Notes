@@ -1,0 +1,108 @@
+package com.example.idrisi
+
+import android.Manifest
+import android.content.ContentResolver
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
+import android.os.Bundle
+import android.provider.ContactsContract
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var alnames : ArrayList<String>
+    lateinit var alNumbers : ArrayList<ArrayList<String>>
+    val readContactsPermission = Manifest.permission.READ_CONTACTS
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        alnames = ArrayList()
+        alNumbers= ArrayList()
+
+        if (ContextCompat.checkSelfPermission(this,readContactsPermission)==PackageManager.PERMISSION_GRANTED){
+            getAllContacts()
+        }else{
+            ActivityCompat.requestPermissions(this, arrayOf(readContactsPermission),100)
+        }
+
+
+    }
+
+    private fun getAllContacts() {
+        progressBar.visibility=View.VISIBLE
+       val cr : ContentResolver = contentResolver
+        val contactsUri : Uri = ContactsContract.Contacts.CONTENT_URI
+        val cursor : Cursor? = cr.query(contactsUri,null,null,null,null)
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                alnames.add(name)
+
+                val alNums : ArrayList<String> = ArrayList()
+                val id : String = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                val hasPhoneNumber : Int = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+
+                if (hasPhoneNumber>0){
+                    val contactsUri1 : Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+                    val selection : String = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?"
+                    val cursor1 : Cursor? = cr.query(contactsUri1,null,selection, arrayOf(id),null)
+                    if (cursor1!=null){
+                        while (cursor1.moveToNext()){
+                            val number : String = cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                            alNums.add(number)
+                        }
+                        cursor1.close()
+                    }
+
+                }
+                alNumbers.add(alNums)
+
+            }
+            cursor.close()
+
+            showContactsOnList()
+        }
+    }
+
+    private fun showContactsOnList() {
+        val arrayAdapter : ArrayAdapter<String> = ArrayAdapter(this,android.R.layout.simple_list_item_1,alnames)
+        progressBar.visibility=View.GONE
+        listView.adapter = arrayAdapter
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            var numbers : String = ""
+            for (num in alNumbers.get(position))
+                numbers = "$numbers$num,"
+            Toast.makeText(this,numbers,Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (grantResults.size>0){
+            if (grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                getAllContacts()
+            else{
+                Toast.makeText(this,"Read Contacts Permission Required",Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+}
+
+
+
+
+
+
+

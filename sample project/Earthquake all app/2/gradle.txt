@@ -1,0 +1,15 @@
+
+//custom crome tab
+implementation 'com.android.support:customtabs:23.3.0'
+    implementation 'com.android.support:design:28.0.0'
+
+//implementation
+
+        list.setOnItemClickListener { parent, view, position, id ->
+            val currentEarthquake = adapter.getItem(position)
+            val url= currentEarthquake?.url
+            val builder = CustomTabsIntent.Builder()
+            builder.setToolbarColor(Color.parseColor("#B30000"))
+            val customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        }

@@ -1,0 +1,39 @@
+
+//List View in activity_main
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"/>
+
+</LinearLayout>
+
+
+
+//menu xml 
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/it1"
+        android:title="Light"/>
+
+    <item
+        android:id="@+id/it2"
+        android:title="Normal"/>
+
+    <item
+        android:id="@+id/it3"
+        android:title="Dark"/>
+
+</menu>

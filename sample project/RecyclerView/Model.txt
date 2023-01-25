@@ -1,0 +1,35 @@
+package com.example.recyclerview.models
+
+data class Hobby(var title:String)
+
+object Supplier{
+
+    val hobbies= listOf(
+        Hobby("Swimming"),
+        Hobby("Reading"),
+        Hobby("Walking"),
+        Hobby("Reading"),
+        Hobby("Gamming"),
+        Hobby("Sleeping"),
+        Hobby("programming"),
+        Hobby("Talking"),
+        Hobby("Swimming"),
+        Hobby("Reading"),
+        Hobby("Walking"),
+        Hobby("Reading"),
+        Hobby("Gamming"),
+        Hobby("Sleeping"),
+        Hobby("programming"),
+        Hobby("Talking"),
+        Hobby("Swimming"),
+        Hobby("Reading"),
+        Hobby("Walking"),
+        Hobby("Reading"),
+        Hobby("Gamming"),
+        Hobby("Sleeping"),
+        Hobby("programming"),
+        Hobby("Talking")
+
+
+    )
+}

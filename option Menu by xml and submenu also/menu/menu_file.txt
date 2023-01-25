@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/m1"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_duo_24"
+        android:title="Item 1"/>
+
+    <item
+        android:id="@+id/m2"
+        app:showAsAction="always"
+        android:title="Item 2"/>
+
+    <item
+        android:id="@+id/m3"
+        android:title="Item 3"/>
+
+    <item
+        android:id="@+id/m4"
+        android:title="Item 4">
+        <menu>
+            <item
+                android:id="@+id/s1"
+                android:title="sub1"/>
+
+            <item
+                android:id="@+id/s2"
+                android:title="sub2"/>
+
+            <item
+                android:id="@+id/s3"
+                android:title="sub3"/>
+
+        </menu>
+    </item>
+
+</menu>
+
+
+
+

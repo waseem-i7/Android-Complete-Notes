@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyFirebaseProject</string>
+    <string name="facebook_app_id">3903142963049301</string>
+    <string name="fb_login_protocol_scheme">fb3903142963049301</string>
+    <string name="facebook_application_id">3903142963049301</string>
+
+
+</resources>

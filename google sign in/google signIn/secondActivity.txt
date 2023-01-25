@@ -1,0 +1,70 @@
+package com.example.firebaseproject
+
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import kotlinx.android.synthetic.main.activity_home.*
+
+class HomeActivity : AppCompatActivity() {
+
+    lateinit var googleSignInClient: GoogleSignInClient
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+
+
+        val gso : GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        googleSignInClient = GoogleSignIn.getClient(this,gso)
+
+
+        val bundle : Bundle? = intent.extras
+
+        val displayName = bundle!!.getString("displayName")
+        val givenName  = bundle.getString("givenName")
+        val familyName = bundle.getString("familyName")
+        val email = bundle.getString("email")
+        val id = bundle.getString("id")
+        val photoUri : Uri? = Uri.parse(bundle.getString("photoUri"))
+        val inputStream = photoUri?.let { getContentResolver().openInputStream(it) }
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        if (inputStream != null) {
+            inputStream.close()
+        }
+
+        tvDisplayName.text = displayName
+        tvGivenName.text = givenName
+        tvFamilyName.text = familyName
+        tvEmail.text= email
+        tvId.text = id
+       imageView.setImageBitmap(bitmap)
+
+        btnLogOut.setOnClickListener {
+            googleSignInClient.signOut().addOnCompleteListener {
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this,"LogOut Successfull",Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+

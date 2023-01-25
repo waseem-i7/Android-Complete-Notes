@@ -1,0 +1,34 @@
+package com.example.idrisi
+
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_home.*
+
+class HomeActivity : AppCompatActivity() {
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+
+        lateinit var sp : SharedPreferences
+        lateinit var editor : SharedPreferences.Editor
+
+        sp=getSharedPreferences("session1", MODE_PRIVATE)
+        editor=sp.edit()
+
+        Toast.makeText(this,sp.getString("user_email",null),Toast.LENGTH_SHORT).show()
+
+        btnLogout.setOnClickListener {
+            editor.clear()
+            editor.apply()
+            Toast.makeText(this,"Logout successfull",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+}

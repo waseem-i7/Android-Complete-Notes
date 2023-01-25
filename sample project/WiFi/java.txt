@@ -1,0 +1,56 @@
+package com.mwi7.myapplication
+
+import android.bluetooth.BluetoothAdapter
+import android.net.wifi.WifiManager
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    //decleare wifimanager
+    lateinit var wifimanager : WifiManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        //initialization of wifi manager
+        wifimanager = getApplicationContext().getSystemService(WIFI_SERVICE) as WifiManager
+
+
+        btnCheck.setOnClickListener{
+            val isConnected = wifimanager.isWifiEnabled
+            if (isConnected){
+                Toast.makeText(this,"wifi is connected",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"wifi is not connected",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnOn.setOnClickListener {
+            wifimanager.setWifiEnabled(true)
+            Toast.makeText(this,"Wifi is Turn On",Toast.LENGTH_SHORT).show()
+        }
+
+        btnOff.setOnClickListener {
+            wifimanager.setWifiEnabled(false)
+            Toast.makeText(this,"Wifi is Turn Off",Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

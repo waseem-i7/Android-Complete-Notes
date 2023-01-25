@@ -1,0 +1,28 @@
+package com.mwi7.mohammad
+
+import android.hardware.Sensor
+import android.hardware.SensorManager
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+lateinit var sm : SensorManager
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val arrayList : ArrayList<String> = ArrayList()
+        sm= getSystemService(SENSOR_SERVICE) as SensorManager
+        val listSensor : List<Sensor> = sm.getSensorList(Sensor.TYPE_ALL)
+         for (sr : Sensor in listSensor){
+             arrayList.add(sr.name)
+         }
+        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList)
+        listViewSensors.adapter=arrayAdapter
+
+    }
+}
+

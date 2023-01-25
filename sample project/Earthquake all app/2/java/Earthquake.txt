@@ -1,0 +1,8 @@
+package com.mwi7.earthquake
+
+data class Earthquake(
+        val magnitude: Double ,
+        val location : String,
+        val date : Long,
+        val url : String
+)

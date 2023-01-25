@@ -1,0 +1,57 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        tv1.setOnClickListener {
+            val pm1 = PopupMenu(this,tv1)
+            menuInflater.inflate(R.menu.popup_1,pm1.menu)
+            pm1.show()
+            pm1.setOnMenuItemClickListener {
+                if (it.itemId==R.id.it1){
+                    Toast.makeText(this,"waseem Hello",Toast.LENGTH_SHORT).show()
+                }else if (it.itemId==R.id.it2){
+                    Toast.makeText(this,"waseem Android",Toast.LENGTH_SHORT).show()
+                }else if(it.itemId==R.id.it3){
+                    Toast.makeText(this,"waseem Java",Toast.LENGTH_SHORT).show()
+                }
+                return@setOnMenuItemClickListener false
+            }
+        }
+        tv2.setOnClickListener {
+            val pm2 = PopupMenu(this,tv2)
+            menuInflater.inflate(R.menu.popup_2,pm2.menu)
+            pm2.show()
+            pm2.setOnMenuItemClickListener { 
+                if (it.itemId==R.id.it1){
+                    Toast.makeText(this,"Ishu Jeevan",Toast.LENGTH_SHORT).show()
+                }else if (it.itemId==R.id.it2){
+                    Toast.makeText(this,"Ishu Sathi",Toast.LENGTH_SHORT).show()
+                }else if(it.itemId==R.id.it3){
+                    Toast.makeText(this,"Ishu Hum Sath Hai",Toast.LENGTH_SHORT).show()
+                }
+                return@setOnMenuItemClickListener false
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

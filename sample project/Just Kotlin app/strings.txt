@@ -1,0 +1,39 @@
+default string
+
+
+
+<resources>
+    <string name="app_name">just kotlin</string>
+    <string name="Quantity">Number of coffee cup</string>
+    <string name="order">order</string>
+    <string name="item">1</string>
+    <string name="price_text">order summary</string>
+    <string name="price">$0</string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
+    <string name="toppings">toppings</string>
+    <string name="whipped_cream">Whipped cream</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="name">Name</string>
+    <string name="minimumItem">you cannot have less than 1 coffee</string>
+</resources>
+
+strings for Hindi language
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">just kotlin</string>
+    <string name="Quantity">कॉफी कप की संख्या</string>
+    <string name="order">आदेश</string>
+    <string name="item">1</string>
+    <string name="price_text">आदेश सारांश</string>
+    <string name="price">$0</string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
+    <string name="toppings">शिखर</string>
+    <string name="whipped_cream">फेटी हुई मलाई</string>
+    <string name="chocolate">चॉकलेट</string>
+    <string name="name">नाम</string>
+    <string name="minimumItem">आपके पास 1 से कम कॉफी नहीं हो सकती</string>
+</resources>

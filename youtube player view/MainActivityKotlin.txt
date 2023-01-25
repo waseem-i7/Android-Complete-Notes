@@ -1,0 +1,29 @@
+package com.example.thinknextapp
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var ytpv : YouTubePlayerView
+    var videoId : String ="2lfETGiIDf8"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        ytpv = findViewById(R.id.youtubePlayerView)
+        lifecycle.addObserver(ytpv)
+        ytpv.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                youTubePlayer.loadVideo(videoId, 0F)
+            }
+        })
+
+    }
+}

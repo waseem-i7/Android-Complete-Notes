@@ -1,0 +1,120 @@
+package com.mwi7.giftforyou
+
+import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_shayari.*
+import kotlinx.android.synthetic.main.shayari_title_bar.*
+import java.util.*
+
+class Love  : AppCompatActivity() {
+
+    private lateinit var LoveTittleArray : Array<String>
+    private lateinit var LoveShayariArray : Array<String>
+    private var index : Int = 0
+    lateinit var ttsobject : TextToSpeech
+    var resul: Int=0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_shayari)
+
+        //code for text to speech
+        ttsobject= TextToSpeech(this, TextToSpeech.OnInitListener {
+            if(it==TextToSpeech.SUCCESS){
+                resul=ttsobject.setLanguage(Locale.ENGLISH)
+            }else{
+                Toast.makeText(applicationContext,"Feature not Supported in Your Device", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        btnspeak.setOnClickListener {
+            if (resul==TextToSpeech.LANG_NOT_SUPPORTED || resul==TextToSpeech.LANG_MISSING_DATA){
+                Toast.makeText(applicationContext,"Feature not Supported in Your Device", Toast.LENGTH_SHORT).show()
+
+            }else{
+                ttsobject.speak(LoveShayariArray[index],TextToSpeech.QUEUE_FLUSH,null)
+            }
+        }
+
+        btnmute.setOnClickListener {
+            if(ttsobject !=null){
+                ttsobject.stop()
+            }
+        }
+
+        //Codes to set Custom Titlt Bar
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.shayari_title_bar)
+        tv_shayari_title_bar.text="Love"
+
+        //Importing The String array from Values Folder
+        LoveTittleArray = resources.getStringArray(R.array.Love_Title)
+        LoveShayariArray = resources.getStringArray(R.array.Love_Shayari)
+
+
+        tvShayariTitle.text=LoveTittleArray[index]
+        tvShayari.text=getString(R.string.textforuserconveniance)
+        tvXX.text=(index+1).toString()
+        tvYY.text=(getString(R.string.slace)+LoveTittleArray.size.toString())
+
+        btnLeft.setOnClickListener {
+            btnspeak.visibility = Button.GONE
+            btnmute.visibility= Button.GONE
+            tvShayari.text=getString(R.string.textforuserconveniance)
+            index--
+            if(index==-1){
+                index=LoveTittleArray.size-1
+                tvShayariTitle.text=LoveTittleArray[index]
+                tvXX.text=(index+1).toString()
+            }else {
+                tvShayariTitle.text = LoveTittleArray[index]
+                tvXX.text = (index + 1).toString()
+            }
+            if(ttsobject != null){
+                ttsobject.stop()
+            }
+        }
+
+        btnShowShayari.setOnClickListener {
+            btnspeak.visibility = Button.VISIBLE
+            btnmute.visibility= Button.VISIBLE
+            tvShayari.text=LoveShayariArray[index]
+        }
+
+        btnRight.setOnClickListener {
+            btnspeak.visibility = Button.GONE
+            btnmute.visibility= Button.GONE
+            tvShayari.text=getString(R.string.textforuserconveniance)
+            index++
+            if(index==LoveTittleArray.size){
+                index=0
+                tvShayariTitle.text=LoveTittleArray[index]
+                tvXX.text=(index+1).toString()
+            }else {
+                tvShayariTitle.text = LoveTittleArray[index]
+                tvXX.text = (index + 1).toString()
+            }
+            if(ttsobject != null){
+                ttsobject.stop()
+            }
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(ttsobject != null){
+            ttsobject.stop()
+        }
+    }
+    override fun onStop() {
+        super.onStop()
+        if(ttsobject != null){
+            ttsobject.stop()
+        }
+    }
+}

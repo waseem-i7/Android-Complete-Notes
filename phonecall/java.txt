@@ -1,0 +1,82 @@
+package com.mwi7.myapplication
+
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.util.Patterns
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+    
+    lateinit var number: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        btn1.setOnClickListener(this)
+        btn2.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        number = etView.text.toString().trim()
+
+        if (number.isEmpty()){
+            etView.setError("Number required")
+            etView.requestFocus()
+        }else if (!Patterns.PHONE.matcher(number).matches()){
+            etView.setError("Invalide Number")
+            etView.requestFocus()
+        }else if (v==btn1){
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.setData(Uri.parse("tel:$number"))
+            startActivity(intent)
+        }else if (v==btn2){
+            if (ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)==PackageManager.PERMISSION_GRANTED){
+                callPhone(number)
+            }else{
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE),101)
+            }
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.size>0){
+            if (requestCode==101 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+               callPhone(number)
+            }else{
+                Toast.makeText(this,"call phone permission required",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun callPhone(number: String) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.setData(Uri.parse("tel:$number"))
+        startActivity(intent)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit  var colors : ArrayList<String>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        colors= ArrayList<String>()
+        colors.add("Red")
+        colors.add("Blue")
+        colors.add("black")
+        colors.add("yellow")
+        colors.add("Green")
+
+        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,colors)
+        listView.adapter=adapter
+
+        //register Contextmenu for listView
+        registerForContextMenu(listView)
+    }
+
+    //add items to ContextMenu
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menu!!.add("Light")
+        menu!!.add("Normal")
+        menu!!.add("Dark")
+    }
+
+
+    //code for to perform clicked event of listView items
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+       val mi : AdapterView.AdapterContextMenuInfo = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        val position = mi.position
+        if (item.title=="Light"){
+            Toast.makeText(this, "Light ${colors[position]} is Selected", Toast.LENGTH_SHORT).show()
+        }else if(item.title=="Normal"){
+            Toast.makeText(this, "Normal ${colors[position]} is Selected", Toast.LENGTH_SHORT).show()
+        }else if(item.title=="Dark"){
+            Toast.makeText(this, "Dark ${colors[position]} is Selected", Toast.LENGTH_SHORT).show()
+        }
+        return super.onContextItemSelected(item)
+    }
+}
+
+
+
+
+
+
+
+
+

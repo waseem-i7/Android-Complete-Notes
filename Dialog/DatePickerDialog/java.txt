@@ -1,0 +1,39 @@
+package com.mwi7.myapplication
+
+import android.app.DatePickerDialog
+import android.os.Bundle
+import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
+class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+
+    //declare calemdar Instance
+    lateinit var cal: Calendar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        //initialize calendar Instance
+        cal = Calendar.getInstance()
+
+        //button for open DatePicker Dialog
+        btnDate.setOnClickListener {
+            val date =cal.get(Calendar.DAY_OF_MONTH)
+            val month=cal.get(Calendar.MONTH)
+            val year=cal.get(Calendar.YEAR)
+
+            val dpd = DatePickerDialog(this,this, year , month ,date)
+            dpd.show()
+        }
+
+
+    }
+
+    //function to set Date on TextView
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        tvDate.setText(" $dayOfMonth/${month+1}/$year")
+    }
+}

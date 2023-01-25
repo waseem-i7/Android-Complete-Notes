@@ -1,0 +1,83 @@
+ package com.mwi7.giftforyou
+
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.appcompat.app.ActionBar
+import kotlinx.android.synthetic.main.activity_main.*
+
+ class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+      //Codes to add custom action title bar
+        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        supportActionBar?.setCustomView(R.layout.main_title_bar)
+
+        romantic.setOnClickListener {
+            val intent =Intent(this,FriendShip::class.java)
+            startActivity(intent)
+        }
+
+        love.setOnClickListener {
+            val intent = Intent(this,Love::class.java)
+            startActivity(intent)
+        }
+
+        funny.setOnClickListener {
+            val intent = Intent(this, Funny::class.java)
+            startActivity(intent)
+        }
+
+        sad.setOnClickListener {
+            val intent = Intent(this,Sad::class.java)
+            startActivity(intent)
+        }
+
+        rateapp.setOnClickListener {
+            try{
+                var uri1 : Uri= Uri.parse("market://details?id="+packageName)
+                var gotoMarket1 = Intent(Intent.ACTION_VIEW,uri1)
+                startActivity(gotoMarket1)
+            } catch (e : ActivityNotFoundException){
+
+                var uri1 : Uri= Uri.parse("http://play.google.com/store/apps/details?id="+packageName)
+                var gotoMarket1 = Intent(Intent.ACTION_VIEW,uri1)
+                startActivity(gotoMarket1)
+            }
+        }
+
+
+        ourmoreapp.setOnClickListener {
+            try{
+                var uri1 : Uri= Uri.parse("market://search?q=Sriyank")
+                var gotoMarket1 = Intent(Intent.ACTION_VIEW,uri1)
+                startActivity(gotoMarket1)
+            } catch (e : ActivityNotFoundException){
+
+                var uri1 : Uri= Uri.parse("http://play.google.com/store/search?q=Sriyank")
+                var gotoMarket1 = Intent(Intent.ACTION_VIEW,uri1)
+                startActivity(gotoMarket1)
+            }
+
+        }
+
+    }
+     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

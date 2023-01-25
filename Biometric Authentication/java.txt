@@ -1,0 +1,86 @@
+package com.example.idrisi
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+      btnLogin.setOnClickListener {
+          if (isBiometricAvailable()){
+             showBiometricPrompt()
+          }
+      }
+
+    }
+
+    private fun showBiometricPrompt() {
+       val executor = ContextCompat.getMainExecutor(this)
+        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                Toast.makeText(this@MainActivity,errString,Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                Toast.makeText(this@MainActivity,"Authentication Success",Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity,Home::class.java)
+                startActivity(intent)
+            }
+
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                Toast.makeText(this@MainActivity,"Authentication Failed",Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        val promptInfo=BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric Authentication")
+            .setSubtitle("Authenticate with Biometric")
+            .setNegativeButtonText("Cancel")
+            .setConfirmationRequired(true)
+            .build()
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+    private fun isBiometricAvailable(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        val canAuthenticate = biometricManager.canAuthenticate()
+
+        if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
+            Toast.makeText(this, "Boimetric Authentication Available", Toast.LENGTH_SHORT).show()
+            return true
+        } else if (canAuthenticate == BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE) {
+            Toast.makeText(this, "No Boimetric HW Available", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (canAuthenticate == BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE) {
+            Toast.makeText(this, "Boimetric HW Unavailable", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (canAuthenticate == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
+            Toast.makeText(this, "Biometric Not Enrolled in Device", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return false
+    }
+}
+
+
+
+
+
+
+
+
+
+

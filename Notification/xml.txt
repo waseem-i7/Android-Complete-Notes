@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notification Title"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notification Description"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ShowNormal View Notification"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnShow"/>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+

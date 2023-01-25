@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">News Book</string>
+    <string name="logo_name">Wizion</string>
+    <string name="slogan_name">We will help to find you way!</string>
+    <string name="powered_by_mwi7">Powered by : MWi7</string>
+    <string name="splash_screen">splash_screen</string>
+
+    <!--String for On Boarding Screen-->
+
+    <!--Titles-->
+    <string name="first_slide_title">First Slide</string>
+    <string name="second_slide_title">Second Slide</string>
+    <string name="third_slide_title">Third Slide</string>
+    <string name="fourth_slide_title">Fourth Slide</string>
+
+    <!--Descriptions-->
+    <string name="first_slide_desc">Hello Wizion First</string>
+    <string name="second_slide_desc">Hello Wizion Second</string>
+    <string name="third_slide_desc">Hello Wizion Third</string>
+    <string name="fourth_slide_desc">Hello Wizion Fourth</string>
+
+    <!--Button-->
+    <string name="skip_btn">Skip</string>
+    <string name="next_btn">Next</string>
+    <string name="let_get_started_btn">Lets Get Started</string>
+</resources>

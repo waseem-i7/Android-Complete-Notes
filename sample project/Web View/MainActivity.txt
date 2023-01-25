@@ -1,0 +1,28 @@
+package com.mwi7.webinapp
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.webkit.WebViewClient
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val webSetting=webView.settings
+        webSetting.javaScriptEnabled=true
+        webView.loadUrl("https://islamicsuwal.blogspot.com/")
+        webView.webViewClient= WebViewClient()
+
+    }
+
+    override fun onBackPressed() {
+
+        if(webView.canGoBack()){
+            webView.goBack()
+        }else {
+            super.onBackPressed()
+        }
+    }
+}

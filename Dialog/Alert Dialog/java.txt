@@ -1,0 +1,51 @@
+package com.mwi7.thinknext
+
+import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        btn1.setOnClickListener {
+           val adb = AlertDialog.Builder(this)
+            adb.setTitle("Alert Title")
+            adb.setIcon(R.mipmap.ic_launcher)
+            adb.setMessage("this is your Alert Message")
+            adb.setCancelable(true)
+            adb.setCancelable(false)
+            adb.setPositiveButton("Yes", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                   Toast.makeText(this@MainActivity ,"Selected Yes",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            adb.setNegativeButton("No", object  : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    Toast.makeText(this@MainActivity ,"Selected No",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            adb.setNeutralButton("Cancel", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    Toast.makeText(this@MainActivity ,"Selected Cancel",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            val ad : AlertDialog = adb.create()
+            ad.show()
+        }
+
+    }
+
+}

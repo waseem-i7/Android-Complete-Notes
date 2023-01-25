@@ -1,0 +1,24 @@
+package com.mwi7.thinknexttraning
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_switch__when.*
+
+class Switch_When : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_switch__when)
+
+        val x = 2
+        val textToPrint= when(x){
+
+            1-> "value of x is $x"
+            2-> "Value of x is $x "
+            3->"value of x is $x"
+            else -> "value of  x is greater than 3"
+        }
+
+        textView.text=textToPrint
+
+    }
+}

@@ -1,0 +1,90 @@
+package com.example.idrisi
+
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+
+    lateinit var sp : SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        btnClearAll.setOnClickListener(this)
+        btnReadAll.setOnClickListener(this)
+        btnRemove.setOnClickListener(this)
+        btnStore.setOnClickListener(this)
+
+        sp=getSharedPreferences("filename1", MODE_PRIVATE)
+        editor=sp.edit()
+    }
+
+    override fun onClick(v: View?) {
+
+        if (v==btnStore){
+            val string : String =etString.text.toString()
+            val boolean : Boolean = toBoolean(etBoolean.text.toString())
+            val long : Long = toLong(etLong.text.toString())
+            val int : Int = toInt(etInteger.text.toString())
+            val float : Float = toFloat(etFloat.text.toString())
+
+            editor.putString("str1",string)
+            editor.putBoolean("boolean1",boolean)
+            editor.putLong("long1",long)
+            editor.putInt("int1",int)
+            editor.putFloat("float1",float)
+
+            editor.commit()
+            0
+            Toast.makeText(this,"All values saved",Toast.LENGTH_SHORT).show()
+        }else if(v==btnReadAll){
+            val str : String? = sp.getString("str1",null)
+            val int : Int? = sp.getInt("int1",0)
+            val boolean : Boolean? = sp.getBoolean("boolean1",false)
+            val long : Long? = sp.getLong("long1",0)
+            val float : Float? = sp.getFloat("float1", 0F)
+
+            Toast.makeText(this,"String $str \n Interger $int \n Boolean $boolean \n Long $long \n Float $float",Toast.LENGTH_SHORT).show()
+
+        }else if (v==btnRemove){
+            val keyname : String = etKey.text.toString()
+            editor.remove(keyname)
+            editor.commit()
+        }else if (v==btnClearAll){
+            editor.clear()
+            editor.commit()}
+    }
+
+    private fun toFloat(str: String): Float {
+        return str.toFloat()
+    }
+
+    private fun toInt(str: String): Int {
+         return str.toInt()
+    }
+
+    private fun toLong(str: String): Long {
+         return str.toLong()
+    }
+
+    private fun toBoolean(str: String): Boolean {
+        return str.toBoolean()
+    }
+}
+
+
+
+
+
+
+
+
+
+

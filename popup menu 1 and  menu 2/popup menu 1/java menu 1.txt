@@ -1,0 +1,75 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
+
+    lateinit var clickedView : View
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        btn1.setOnClickListener {
+            clickedView=btn1
+            val pm1 = PopupMenu(this, btn1)
+            pm1.menu.add("Hello")
+            pm1.menu.add("android")
+            pm1.menu.add("java")
+            pm1.show()
+
+            pm1.setOnMenuItemClickListener(this)
+        }
+        btn2.setOnClickListener {
+            clickedView=btn2
+            val pm2 = PopupMenu(this,btn2)
+            pm2.menu.add("Hello")
+            pm2.menu.add("android")
+            pm2.menu.add("java")
+            pm2.show()
+
+            pm2.setOnMenuItemClickListener(this)
+        }
+    }
+
+    
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+
+        if (clickedView==btn1){
+            if (item!!.title == "Hello") {
+                Toast.makeText(this, "Hello is Selected", Toast.LENGTH_SHORT).show()
+            } else if (item!!.title == "android") {
+                Toast.makeText(this, "Android is Selected", Toast.LENGTH_SHORT).show()
+            } else if (item!!.title == "java") {
+                Toast.makeText(this, "java is Selected", Toast.LENGTH_SHORT).show()
+            }
+
+        }else if (clickedView==btn2){
+            if (item!!.title == "Hello") {
+                Toast.makeText(this, "Hello 2 is Selected", Toast.LENGTH_SHORT).show()
+            } else if (item!!.title == "android") {
+                Toast.makeText(this, "Android 2 is Selected", Toast.LENGTH_SHORT).show()
+            } else if (item!!.title == "java") {
+                Toast.makeText(this, "java 2 is Selected", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return false
+    }
+}
+
+
+
+
+
+

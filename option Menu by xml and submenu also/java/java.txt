@@ -1,0 +1,64 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+       val mi=menuInflater
+        mi.inflate(R.menu.menu_file,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if(item.itemId==R.id.m1){
+            Toast.makeText(this,"Item m1", Toast.LENGTH_SHORT).show()
+        } else if(item.itemId==R.id.m2){
+            Toast.makeText(this,"Item m2", Toast.LENGTH_SHORT).show()
+        }else if(item.itemId==R.id.m3){
+            Toast.makeText(this,"Item m3", Toast.LENGTH_SHORT).show()
+        }else if(item.itemId==R.id.m4){
+            Toast.makeText(this,"Item m4", Toast.LENGTH_SHORT).show()
+        }else if(item.itemId==R.id.s1){
+            Toast.makeText(this,"submenu s1 is selected", Toast.LENGTH_SHORT).show()
+        }else if(item.itemId==R.id.s2){
+            Toast.makeText(this,"submenu s2 is selected", Toast.LENGTH_SHORT).show()
+        }else if(item.itemId==R.id.s3){
+            Toast.makeText(this,"submenu s3 is selected", Toast.LENGTH_SHORT).show()
+        }
+//       when(item.itemId){
+//           R.id.m1->
+//               Toast.makeText(this,"Item m1", Toast.LENGTH_SHORT).show()
+//
+//           R.id.m2->
+//               Toast.makeText(this,"Item m2", Toast.LENGTH_SHORT).show()
+//
+//           R.id.m3->
+//               Toast.makeText(this,"Item m3", Toast.LENGTH_SHORT).show()
+//
+//           R.id.m4->
+//               Toast.makeText(this,"Item m4", Toast.LENGTH_SHORT).show()
+//           else->
+//               Toast.makeText(this,"nothing is selected", Toast.LENGTH_SHORT).show()
+//       }
+        return super.onOptionsItemSelected(item)
+    }
+}
+
+
+
+
+
+

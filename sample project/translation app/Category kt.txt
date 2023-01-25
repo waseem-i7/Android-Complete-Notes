@@ -1,0 +1,162 @@
+package com.example.addvocab
+
+import android.content.Context
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.word_list.*
+
+class Activity_Number : AppCompatActivity() {
+
+    /**
+     * Handles playback of all the sound files
+     */
+    private var  mediaPlayer:MediaPlayer?=null
+
+    /**
+     * handels audiofocus when playing a sound file
+     */
+    lateinit var mAudioManager:AudioManager
+
+    private val mOnAudioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        when (focusChange) {
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT-> {
+                // AUDIOFOCUS_LOSS_TRANSIENT case means that we've lost audio focus
+                //short amount of time.
+                mediaPlayer?.pause()
+                mediaPlayer?.seekTo(0)
+            }
+
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                //AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK case means that our app
+                //is allowed  to continue playing short sound files.
+                mediaPlayer?.pause()
+                mediaPlayer?.seekTo(0)
+            }
+            AudioManager.AUDIOFOCUS_GAIN -> {
+                // The AUDIOFOCUS_GAIN case means we have regained focus and
+                //can resume playback
+                mediaPlayer?.start()
+            }
+            AudioManager.AUDIOFOCUS_LOSS-> {
+                //The AUDIOFOCUS_LOSS case means we we've  lost audio focus
+                //and stop playback and clean up resources
+                releaseMediaPlayer()
+            }
+        }
+    }
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.word_list)
+
+        //Create and setup the {@link AudioManager} to request audio focus
+        mAudioManager= getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+        //Create an array of words
+
+       // val word=arrayOf("one","two","three","four","five","six","seven","eight","nine","ten")
+        // Log.i("Activity_Number","item at index 0  is "+word[0])
+        val   words= arrayListOf<Word>() //Mutable ,No Fixed Size,Can Add or remove Elements
+
+
+        words.add(Word("one","ek",R.raw.number_one,R.drawable.number_one))
+        words.add(Word("two","do",R.raw.number_two,R.drawable.number_two))
+        words.add(Word("three","teen",R.raw.number_three,R.drawable.number_three))
+        words.add(Word("four","char",R.raw.number_four,R.drawable.number_four))
+        words.add(Word("five","panch",R.raw.number_five,R.drawable.number_five))
+        words.add(Word("six","cheh",R.raw.number_six,R.drawable.number_six))
+        words.add(Word("seven","saat",R.raw.number_seven,R.drawable.number_seven))
+        words.add(Word("eight","aath",R.raw.number_eight,R.drawable.number_eight))
+        words.add(Word("nine","nau",R.raw.number_nine,R.drawable.number_nine))
+        words.add(Word("ten","das",R.raw.number_ten,R.drawable.number_ten))
+
+
+
+        //list view created by linear layout
+      //  for(count in 0..(word.size-1)) {
+      //
+      //      //Create a new TextView
+      //      val wordView=TextView(this)
+     //       //set text to be word at the current index
+     //       wordView.text=word.get(count)
+     //       //Add this TextView as another child to the root view of this layout
+     //       rootView.addView(wordView)
+    //    }
+
+        //list created by built in layout in list_item
+        val itemAdapter=WordAdapter(this,R.layout.list_item,words,R.color.category_numbers)
+        listView.adapter=itemAdapter
+
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+
+
+            val word = words.get(position)
+
+            //to print object state in string
+            Log.i("Activity_Number", "Current Word:${word}")
+
+            releaseMediaPlayer()
+
+            //ReQuest audio Focus for playback
+            val result=mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                    //Use the music stream.
+                    AudioManager.STREAM_MUSIC,
+                    //Request temporary focus.
+                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+
+            if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                //we have a audio focus now.
+                mediaPlayer = MediaPlayer.create(this, word.getAudio())
+                mediaPlayer?.start()
+
+                mediaPlayer?.setOnCompletionListener {
+                    releaseMediaPlayer()
+                }
+            }
+
+            }
+
+
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        releaseMediaPlayer()
+    }
+    /**
+     * Clean up the media player by releasing its resources.
+     */
+    private fun releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mediaPlayer?.release()
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mediaPlayer = null
+
+            mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener)
+
+        }
+    }
+
+
+}
+
+
+
+
+
+
+

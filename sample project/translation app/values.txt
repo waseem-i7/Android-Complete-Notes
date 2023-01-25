@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!--Primary color of the app(show in the app bar-->
+    <color name="primary_color">#4A312A</color>
+    <!--Primary dark color of the app(show in the status bar)-->
+    <color name="primary_dark_Color">#2F1D1A</color>
+    <!--Backgound color for app-->
+    <color name="tan_background">#FFF7DA</color>
+    <!--Background color for the number category-->
+    <color name="category_numbers">#FD8E09</color>
+    <!--Backgound color for the family menbers category-->
+    <color name="category_family">#379237</color>
+    <!--Background color for the colors category-->
+    <color name="category_colors">#8800A0</color>
+    <!--Background color for the phrases category-->
+    <color name="category_phrases">#16AFCA</color>
+    <!---->
+    <!---->
+
+</resources>
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Height of each item list-->
+    <dimen name="list_item_height">88dp</dimen>
+
+</resources>
+
+
+
+
+<resources>
+    <!-- Title for the application. [CHAR LIMIT=12] -->
+    <string name="app_name">AddVocab</string>
+
+    <!-- Category name for phrases [CHAR LIMIT=20] -->
+    <string name="category_phrases">Phrases</string>
+
+    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
+    <string name="category_colors">Colors</string>
+
+    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
+    <string name="category_numbers">Numbers</string>
+
+    <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
+    <string name="category_family">Family Members</string>
+    <string name="todo">TODO</string>
+    <string name="to">TODO</string>
+</resources>
+
+
+
+
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--Style for a category of vacabulary words-->
+    <style name="CategoryStyle">
+       <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">88dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+
+    </style>
+</resources>
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+package com.mwi7.earthquake
+
+import android.graphics.Color
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.browser.customtabs.CustomTabsIntent
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+                // crate a fake list of earthquake locations.
+
+        val earthquake = QueryUtils.extractEarthquakes()
+
+
+        //Create a reference to the {@link  ArrayAdapter} of earthquake
+        val adapter = EarthquakeArrayAdapter(this,R.layout.item_view,earthquake)
+       //set the adapter on the {@link ListView}
+        list.adapter=adapter
+
+        list.setOnItemClickListener { parent, view, position, id ->
+            val currentEarthquake = adapter.getItem(position)
+            val url= currentEarthquake?.url
+            val builder = CustomTabsIntent.Builder()
+            builder.setToolbarColor(Color.parseColor("#B30000"))
+            val customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        }
+
+
+    }
+}

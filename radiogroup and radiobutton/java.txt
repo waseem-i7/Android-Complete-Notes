@@ -1,0 +1,85 @@
+package com.mwi7.thinknexttraning
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Gravity
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_radio_button.*
+
+class RadioButton : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_radio_button)
+
+        //to checked radio button in java file
+       // rgOs.check(R.id.rbWindows)
+
+
+
+        //set onCheckedChangeListener
+        rgGender.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId==R.id.rbMale)
+                Toast.makeText(this,"Male",Toast.LENGTH_SHORT).show()
+            else if(checkedId==R.id.rbFemale)
+                Toast.makeText(this,"Female",Toast.LENGTH_SHORT).show()
+        }
+
+        rgOs.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId==R.id.rbWindows)
+                Toast.makeText(this,"window",Toast.LENGTH_SHORT).show()
+            else if(checkedId==R.id.rbMAC)
+                Toast.makeText(this,"Mac",Toast.LENGTH_SHORT).show()
+            else if(checkedId==R.id.rbLinux)
+                Toast.makeText(this,"Linux",Toast.LENGTH_SHORT).show()
+        }
+
+
+        //submit button
+        btnSubmit.setOnClickListener {
+            val rbidForrgGender : Int= rgGender.checkedRadioButtonId
+
+            if(rbidForrgGender==R.id.rbMale){
+                val toast=Toast.makeText(this,"Male is Selected",Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER,0,0)
+                toast.show()
+            }else if(rbidForrgGender==R.id.rbFemale){
+                val toast=Toast.makeText(this,"Female is Selected",Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER,0,0)
+                toast.show()
+            }else{
+                val toast=Toast.makeText(this,"No Gender is Selected Please select gender",Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER,0,0)
+                toast.show()
+            }
+
+            val rbidForrgOs : Int= rgOs.checkedRadioButtonId
+
+            if(rbidForrgOs==R.id.rbWindows){
+                Toast.makeText(this,"Window is Selected",Toast.LENGTH_SHORT).show()
+            }else if(rbidForrgOs==R.id.rbMAC){
+                Toast.makeText(this,"MAC  is Selected",Toast.LENGTH_SHORT).show()
+            }else if(rbidForrgOs==R.id.rbLinux){
+                Toast.makeText(this,"Linux  is Selected",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"No OS is Selected please select OS",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

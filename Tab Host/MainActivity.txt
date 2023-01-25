@@ -1,0 +1,34 @@
+package com.example.thinknextapp
+
+import android.app.TabActivity
+import android.content.Intent
+import android.os.Bundle
+import android.widget.TabHost
+
+class MainActivity : TabActivity() {
+
+    lateinit var th : TabHost
+    lateinit var ts : TabHost.TabSpec
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        th = findViewById(android.R.id.tabhost)
+
+        ts = th.newTabSpec("tag1")
+        ts.setIndicator("First")
+        ts.setContent(Intent(this,FirstTabActivity::class.java))
+        th.addTab(ts)
+
+        ts = th.newTabSpec("tag2")
+        ts.setIndicator("Second")
+        ts.setContent(Intent(this,SecondTabActivity::class.java))
+        th.addTab(ts)
+
+        ts = th.newTabSpec("tag3")
+        ts.setIndicator("Third")
+        ts.setContent(Intent(this,ThirdTabActivity::class.java))
+        th.addTab(ts)
+    }
+}

@@ -1,0 +1,6 @@
+// Base URL to access webserver: RetrofitBuilder.kt file 
+private const val BASE_URL = "https://api.themoviedb.org/3/"
+
+
+// Base URL for image: MoviesAdapter.kt file 
+private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500" 

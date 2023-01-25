@@ -1,0 +1,78 @@
+package com.mwi7.myapplication
+
+import android.bluetooth.BluetoothAdapter
+import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    val staticHtml="<html>"+
+                   "<body>"+
+                   "<h1>Welcome to ThinkNext</h1>"+
+                   "<h2>Welcome to ThinkNext</h2>"+
+                   "<h3>Welcome to ThinkNext</h3>"+
+                   "<p>It's a static web Html Content.</p>"+
+                   "</body>"+
+                   "</html>"
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //to javascript Enabled
+        webView.settings.javaScriptEnabled=true
+        webView.webViewClient= WebViewClient()
+
+        btnLoad.setOnClickListener {
+            webView.loadData(staticHtml,"text/html","UTF-8")
+        }
+
+        btnGo.setOnClickListener {
+           val url=etUrl.text.toString()
+            if (url.trim().equals("")){
+                Toast.makeText(this,"please Enter URL",Toast.LENGTH_SHORT).show()
+            }else{
+                webView.loadUrl(url)
+            }
+        }
+
+        btnSearch.setOnClickListener {
+              val searchText=etSearch.text.toString()
+              if(searchText.trim().equals("")){
+                  Toast.makeText(this,"Enter Text",Toast.LENGTH_SHORT).show()
+              }else{
+                  webView.loadUrl("https://www.google.com/search?q=$searchText")
+              }
+        }
+    }
+
+    override fun onBackPressed() {
+
+        if (webView.canGoBack()){
+            webView.goBack()
+        }else{
+            super.onBackPressed()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

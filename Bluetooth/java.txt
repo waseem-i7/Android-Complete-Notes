@@ -1,0 +1,55 @@
+package com.mwi7.myapplication
+
+import android.bluetooth.BluetoothAdapter
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    //decleare bluetooth adapter
+    lateinit var bAdapter : BluetoothAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        //initialization of bluetooth adapter
+        bAdapter = BluetoothAdapter.getDefaultAdapter()
+
+
+        btnCheck.setOnClickListener{
+            val isConnected = bAdapter.isEnabled
+            if (isConnected){
+                Toast.makeText(this,"Bluetooth is connected",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"Blutooth is not connected",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnOn.setOnClickListener {
+            bAdapter.enable()
+            Toast.makeText(this,"Bluetooth is enabled",Toast.LENGTH_SHORT).show()
+        }
+
+        btnOff.setOnClickListener {
+            bAdapter.disable()
+            Toast.makeText(this,"Bluetooth is desabled",Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+package com.mwi7.newsbook.Common
+
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
+import com.mwi7.newsbook.R
+import com.mwi7.newsbook.User.UserDashboard
+
+class SplashScreen : AppCompatActivity() {
+
+    companion object{
+        private val SPLASH_TIMER : Long = 5000
+    }
+
+    //Variables
+    lateinit var splashScreen: ImageView
+    lateinit var poweredBy : TextView
+
+    //Animations
+    lateinit var sideAnim : Animation
+    lateinit var bottomAnim : Animation
+
+    lateinit var onBoardingScreen: SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.splash_screen)
+
+        //Hooks
+        splashScreen=findViewById(R.id.splashScreen)
+        poweredBy = findViewById(R.id.poweredBy)
+
+        //Animations
+        sideAnim = AnimationUtils.loadAnimation(this,R.anim.side_anim)
+        bottomAnim=AnimationUtils.loadAnimation(this,R.anim.bottom_anim)
+
+        //set Animation on elements
+        splashScreen.animation=sideAnim
+        poweredBy.animation=bottomAnim
+
+        Handler(Looper.myLooper()!!).postDelayed(Runnable {
+           run {
+                  onBoardingScreen = getSharedPreferences("onBoardingScreen", MODE_PRIVATE)
+                  val isFirstTime : Boolean = onBoardingScreen.getBoolean("firstTime",true)
+
+               if (isFirstTime){
+                   val editor = onBoardingScreen.edit()
+                   editor.putBoolean("firstTime",false)
+                   editor.commit()
+                   val intent = Intent(this@SplashScreen,OnBoarding::class.java)
+                   startActivity(intent)
+                   finish()
+               }else{
+                   val intent = Intent(this@SplashScreen,UserDashboard::class.java)
+                   startActivity(intent)
+                   finish()
+               }
+
+           }
+
+        }, SPLASH_TIMER)
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-7548170259685024/9667677316"
+        app:layout_constraintBottom_toTopOf="@+id/memeImageView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:background="#000000"
+        android:id="@+id/memeImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/shareButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/memeImageView"
+        app:layout_constraintLeft_toLeftOf="@+id/memeImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/memeImageView"
+        app:layout_constraintRight_toRightOf="@+id/memeImageView"
+        />
+
+
+    <Button
+        android:textColor="@color/textColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/shareButton"
+        android:text="@string/share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/downloadButton"
+        android:padding="20dp"
+        android:background="@color/shareColor"/>
+
+    <Button
+        android:textColor="@color/textColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/downloadButton"
+        android:text="download"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/shareButton"
+        app:layout_constraintRight_toLeftOf="@id/nextButton"
+        android:padding="20dp"
+        android:background="@color/shareColor"/>
+
+    <Button
+        android:textColor="@color/textColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextButton"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/downloadButton"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="20dp"
+        android:background="@color/shareColor"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+

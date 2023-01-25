@@ -1,0 +1,43 @@
+package com.example.addvocab
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+  // Set a Click listener on the number view
+        numbers.setOnClickListener {
+            //The code in this method will be executed when the number category id clicked on.
+         val intent=Intent(this,Activity_Number::class.java)
+            startActivity(intent)
+        }
+
+        // Set a Click listener on the family view
+        family.setOnClickListener {
+            //The code in this method will be executed when the family category id clicked on.
+            val intent=Intent(this,Activity_Family::class.java)
+            startActivity(intent)
+        }
+
+        // Set a Click listener on the colors view
+        colors.setOnClickListener {
+            //The code in this method will be executed when the colors category id clicked on.
+            val intent=Intent(this,Activity_Color::class.java)
+            startActivity(intent)
+        }
+
+
+        // Set a Click listener on the phrases view
+        phrases.setOnClickListener {
+            //The code in this method will be executed when the phrases category id clicked on.
+            val intent=Intent(this,Activity_Phrases::class.java)
+            startActivity(intent)
+        }
+
+    }
+}

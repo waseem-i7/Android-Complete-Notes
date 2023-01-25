@@ -1,0 +1,64 @@
+package com.example.idrisi
+
+import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraManager
+import android.os.Build
+import android.os.Bundle
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var cameraManager : CameraManager
+    lateinit var cameraId : String
+     var hasFlash : Boolean = false
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //check for system has Flash Light
+        hasFlash = packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+
+        //initialized camera manager
+        cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
+        try{
+            cameraId=cameraManager.cameraIdList[0]
+        }catch (e : CameraAccessException){
+            e.printStackTrace()
+            Toast.makeText(this, e.localizedMessage , Toast.LENGTH_SHORT).show()
+
+        }
+
+
+        btnToggleTorch.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (hasFlash&&cameraId!=null){
+                try{
+                    cameraManager.setTorchMode(cameraId,isChecked)
+
+                }catch (e : CameraAccessException){
+                    e.printStackTrace()
+                    Toast.makeText(this,e.localizedMessage,Toast.LENGTH_SHORT).show()
+                }
+
+            }else{
+                Toast.makeText(this,"Flashlight Not Available",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+

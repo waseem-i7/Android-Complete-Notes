@@ -1,0 +1,45 @@
+package com.mwi7.thinknexttraning
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.CheckBox
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_check_box.*
+
+class CheckBox : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_check_box)
+
+        //to change the checked state of any checkbox
+        cb1.isChecked=true
+
+        //
+        cb2.setOnCheckedChangeListener { buttonView, isChecked ->
+            Toast.makeText(this,"$isChecked",Toast.LENGTH_SHORT).show()
+        }
+
+        btnGetHobbies.setOnClickListener {
+            //TO get the checked state of any checkbox use method
+            var checked : String =""
+            if(cb1.isChecked)
+                checked=checked+cb1.text.toString()+","
+
+            if(cb2.isChecked)
+                checked=checked+cb2.text.toString()+","
+
+            if(cb3.isChecked)
+                checked=checked+cb3.text.toString()+","
+
+            if(cb4.isChecked)
+                checked=checked+cb4.text.toString()+","
+
+            if(!cb1.isChecked && !cb2.isChecked && !cb3.isChecked && !cb4.isChecked)
+                Toast.makeText(this,"you have selected nothing",Toast.LENGTH_SHORT).show()
+            else
+                Toast.makeText(this,"you have selected "+checked,Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+

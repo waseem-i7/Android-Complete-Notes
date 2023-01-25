@@ -1,0 +1,48 @@
+package com.mwi7.actionbar
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    //code for to create option menu
+    override fun onCreateOptionsMenu(menu : Menu?): Boolean {
+        if (menu != null) {
+            menu.add("Hello")
+            menu.add("Baby")
+            menu.add("Android")
+            menu.add("google")
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    //code for perform click event on menu options
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+       if (item.title=="Hello"){
+           Toast.makeText(this,"Hello is Selected",Toast.LENGTH_SHORT).show()
+       }else if(item.title=="Baby"){
+           Toast.makeText(this,"Baby is Selected",Toast.LENGTH_SHORT).show()
+       }else if(item.title=="Android"){
+           Toast.makeText(this,"Android is Selected",Toast.LENGTH_SHORT).show()
+       }else if(item.title=="google"){
+           Toast.makeText(this,"google is Selected",Toast.LENGTH_SHORT).show()
+       }
+
+        return super.onOptionsItemSelected(item)
+    }
+}
+
+
+
+
+
+

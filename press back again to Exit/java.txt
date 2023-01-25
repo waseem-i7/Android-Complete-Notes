@@ -1,0 +1,29 @@
+package com.mwi7.mohammad
+
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.roundToInt
+
+
+class MainActivity : AppCompatActivity() {
+
+    val TIME_FRAME = 2000
+    var backPressed : Long =0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onBackPressed() {
+        if (TIME_FRAME+backPressed>System.currentTimeMillis())
+        super.onBackPressed()
+        else
+            Toast.makeText(this,"Prass Back Again To Exit",Toast.LENGTH_SHORT).show()
+
+        backPressed = System.currentTimeMillis()
+    }
+}
+

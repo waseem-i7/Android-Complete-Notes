@@ -1,0 +1,45 @@
+package com.mwi7.myapplication
+
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.os.Bundle
+import android.widget.DatePicker
+import android.widget.TimePicker
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
+
+class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
+
+    lateinit var cal: Calendar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        cal = Calendar.getInstance()
+
+        btnTime.setOnClickListener {
+            val hour=cal.get(Calendar.HOUR_OF_DAY)
+            val minute=cal.get(Calendar.MINUTE)
+
+            val tpd= TimePickerDialog(this,this,hour,minute,false)
+            tpd.show()
+
+        }
+
+
+    }
+
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val hr24time = "$hourOfDay:$minute"
+        val sdf1 = SimpleDateFormat("HH:mm")
+        val sdf2 = SimpleDateFormat("hh:mm a")
+        val date=sdf1.parse(hr24time)
+        val hr24hr =sdf2.format(date)
+
+       tvTime.setText(hr24hr)
+    }
+}

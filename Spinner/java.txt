@@ -1,0 +1,86 @@
+package com.mwi7.adapteradapterviewandlistview
+
+
+import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_spinner.*
+
+class Spinner : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_spinner)
+
+        val fruits = ArrayList<String>()
+        val quantity=ArrayList<Int>()
+
+        fruits.add("mango")
+        fruits.add("guava")
+        fruits.add("grapes")
+        fruits.add("orange")
+        fruits.add("banana")
+
+        quantity.add(2)
+        quantity.add(4)
+        quantity.add(9)
+        quantity.add(12)
+        quantity.add(43)
+
+
+        val adapter1 = ArrayAdapter(this,android.R.layout.simple_spinner_item,fruits)
+        val adapter2= ArrayAdapter(this,android.R.layout.simple_spinner_item,quantity)
+
+        spinner1.adapter=adapter1
+        spinner2.adapter=adapter2
+
+        spinner1.onItemSelectedListener=this
+        spinner2.onItemSelectedListener=this
+        spinner1.setSelection(2)
+        spinner2.setSelection(3)
+
+        button.setOnClickListener {
+          val item1 :String= spinner1.selectedItem.toString()
+          val item2 : String= spinner2.selectedItem.toString()
+
+          val position1: Int=spinner1.selectedItemPosition
+          val position2: Int=spinner2.selectedItemPosition
+
+            Toast.makeText(this,"Selected Fruits "+item1+" at position "+position1,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Selected quantity "+item2+" at position "+position2,Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val item= parent?.getItemAtPosition(position).toString()
+        if (parent==spinner1) {
+            Toast.makeText(this, "Selected fruits is "+item+" at position "+ position, Toast.LENGTH_SHORT).show()
+        }else if (parent==spinner2){
+            Toast.makeText(this, "Selected quantity is "+item+" at position" + position, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

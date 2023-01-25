@@ -1,0 +1,88 @@
+package com.example.myfirebaseproject
+
+import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Base64
+import android.util.Log
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.example.myfirebaseproject.databinding.ActivityMainBinding
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    val auth = FirebaseAuth.getInstance().currentUser
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+       binding= DataBindingUtil.setContentView(this,R.layout.activity_main)
+        // generateFBKey()
+
+        if (auth !== null){
+            createUI()
+        }
+        else{
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
+
+        btnLogout.setOnClickListener {
+            AuthUI.getInstance().signOut(this).addOnSuccessListener {
+                startActivity(Intent(this,LoginActivity::class.java))
+                Toast.makeText(this,"successfully Logged Out",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (auth !== null){
+            createUI()
+        }
+        else{
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
+
+    fun createUI(){
+        auth?.let{
+            txt_name.text = auth.displayName
+            tvEmail.text = auth.email
+            tvPhoneNumber.text = auth.phoneNumber
+            Glide.with(this)
+                .load(auth.photoUrl)
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .into(userImage)
+        }
+    }
+//    fun generateFBKey(){
+//        try{
+//            val info = packageManager.getPackageInfo("com.example.myfirebaseproject",PackageManager.GET_SIGNATURES)
+//            for (signature in info.signatures){
+//                val md:MessageDigest= MessageDigest.getInstance("SHA")
+//                md.update(signature.toByteArray())
+//                Log.d("KeyHash:",Base64.encodeToString(md.digest(),Base64.DEFAULT))
+//            }
+//        }catch (e : PackageManager.NameNotFoundException){
+//        }catch (e : NoSuchAlgorithmException){
+//        }
+//    }
+
+
+}
+
+

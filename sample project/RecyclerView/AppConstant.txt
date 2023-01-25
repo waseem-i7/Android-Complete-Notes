@@ -1,0 +1,6 @@
+package com.example.recyclerview
+
+object Constants
+{
+     const val USER_MSG_KEY="user_massage"
+}

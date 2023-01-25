@@ -1,0 +1,51 @@
+package com.mwi7.mohammad
+
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
+class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+
+    lateinit var textToSpeak : TextToSpeech
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        textToSpeak = TextToSpeech(this,this)
+
+            btnSpeak.setOnClickListener {
+                val text = et.text.toString()
+                if (text.trim().equals("")){
+                    Toast.makeText(this,"please Enter Text",Toast.LENGTH_SHORT).show()
+                }else{
+                    textToSpeak.speak(text,TextToSpeech.QUEUE_FLUSH,null,null)
+                }
+            }
+
+    }
+
+    override fun onInit(status: Int) {
+        //status is the status of text to speach
+        if (status==TextToSpeech.SUCCESS){
+            textToSpeak.setLanguage(Locale.US)
+        }
+    }
+
+    override fun onDestroy() {
+        if (textToSpeak!=null){
+            textToSpeak.stop()
+            textToSpeak.shutdown()
+            super.onDestroy()
+        }else{
+            super.onDestroy()
+        }
+    }
+}
+

@@ -1,0 +1,53 @@
+package com.mwi7.mohammad
+
+import android.os.Bundle
+import android.view.View
+import android.widget.SeekBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+
+class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //set default seek bar position of sb2
+        sb2.progress=30
+        sb2.max=80
+
+        sb1.setOnSeekBarChangeListener(this)
+        sb2.setOnSeekBarChangeListener(this)
+        btn1.setOnClickListener(this)
+        btn2.setOnClickListener(this)
+        
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        if (seekBar==sb1){
+            tv1.text=progress.toString()
+        }else if (seekBar==sb2){
+            tv2.text=progress.toString()
+        }
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    override fun onClick(v: View?) {
+      if (v==btn1){
+          val i : Int=sb1.progress
+          Toast.makeText(this,"Progress 1 is $i",Toast.LENGTH_SHORT).show()
+      }else if (v==btn2){
+          val i : Int=sb2.progress
+          Toast.makeText(this,"Progress 2 is $i",Toast.LENGTH_SHORT).show()
+      }
+    }
+}
+

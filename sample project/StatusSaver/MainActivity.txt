@@ -1,0 +1,54 @@
+package com.mwi7.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import android.os.Bundle;
+
+import com.google.android.material.tabs.TabLayout;
+import com.mwi7.myapplication.Adapters.PagerAdapter;
+import com.mwi7.myapplication.Fragments.ImageFragment;
+import com.mwi7.myapplication.Fragments.VideoFragment;
+
+import java.util.Objects;
+
+public class MainActivity extends AppCompatActivity {
+
+     ViewPager viewPager;
+     TabLayout tabLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        PagerAdapter Adapter = new PagerAdapter(getSupportFragmentManager());
+        Adapter.addFragment(new ImageFragment());
+        Adapter.addFragment(new VideoFragment());
+
+        viewPager=findViewById(R.id.viewPager);
+        viewPager.setAdapter(Adapter);
+
+        tabLayout=findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(viewPager);
+
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText("Images");
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText("Videos");
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+package com.mwi7.thinknext
+
+import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+
+        btn1.setOnClickListener {
+            val colors = arrayOf("Red","Blue","Black","Yellow","Green")
+            var checkedItem =2
+            val adb = AlertDialog.Builder(this)
+            adb.setTitle("Select Color")
+            adb.setIcon(R.mipmap.ic_launcher)
+            adb.setCancelable(false)
+
+            adb.setSingleChoiceItems(colors,checkedItem, object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    checkedItem=which
+                    Toast.makeText(this@MainActivity,"$which ",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            adb.setPositiveButton("Submit", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    Toast.makeText(this@MainActivity ,"Selected colors is ${colors[checkedItem]}",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            adb.setNegativeButton("Cancel", object  : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    Toast.makeText(this@MainActivity ,"Cancelled",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+
+            val ad : AlertDialog = adb.create()
+            ad.show()
+        }
+
+      
+    }
+
+
+}

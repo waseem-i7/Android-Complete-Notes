@@ -1,0 +1,31 @@
+package com.mwi7.thinknexttraning
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_toggle_button.*
+
+class ToggleButton : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_toggle_button)
+
+        //to change initial state of toggle button in java file
+        toggleButton1.isChecked=false
+
+        toggleButton1.setOnCheckedChangeListener { buttonView, isChecked ->
+            Toast.makeText(this,"$isChecked",Toast.LENGTH_SHORT).show()
+        }
+
+        toggleButton2.setOnCheckedChangeListener { buttonView, isChecked ->
+            Toast.makeText(this,"$isChecked",Toast.LENGTH_SHORT).show()
+        }
+
+        button.setOnClickListener {
+            val b1=toggleButton1.isChecked
+            val b2=toggleButton2.isChecked
+
+            Toast.makeText(this,"b1 is $b1 \n b2 is $b2",Toast.LENGTH_SHORT).show()
+        }
+    }
+}
